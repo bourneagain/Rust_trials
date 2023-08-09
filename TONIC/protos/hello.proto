@@ -1,0 +1,14 @@
+syntax = "proto3";
+package edgeaction;
+
+service EdgeAction {
+    rpc EdgeActionRpc (EdgeActionRequest) returns (EdgeActionResponse);
+}
+
+message EdgeActionRequest {
+  string input  = 1;
+}
+
+message EdgeActionResponse {
+    string result = 1;
+}
