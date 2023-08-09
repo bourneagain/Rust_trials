@@ -1,14 +1,14 @@
 use tonic::{transport::Server, Request, Response, Status};
 use edgeaction::{
-    EdgeActionSvcRequest,
-    EdgeActionSvcResponse,
-    edge_action_server::{EdgeAction, EdgeActionSvcServer}};
+    EdgeActionRequest,
+    EdgeActionResponse,
+    edge_action_server::{EdgeAction, EdgeActionServer}};
 
 pub mod edgeaction {
   tonic::include_proto!("edgeaction");
 }
 
-[derive(Debug, Default)]
+#[derive(Debug, Default)]
 pub struct EdgeActionSvc {}
 
 
@@ -30,7 +30,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let address = "[::1]:8080".parse().unwrap();
   let edgeactionsvc = EdgeActionSvc::default();
 
-  Server::builder().add_service(EdgeActionSvcServer::new(edge_action_rpc_service))
+  Server::builder().add_service(EdgeActionServer::new(edgeactionsvc))
     .serve(address)
     .await?;
   Ok(())
